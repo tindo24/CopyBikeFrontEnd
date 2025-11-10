@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 25px;
+  border-bottom: 2px solid #e3e3e3;
+}
+
+nav a {
+  text-decoration: none;
+  color: #929292;
+  margin: 0 40px;
+}
+
+nav a:hover {
+  color: green;
+}
+
+nav a.active {
+  color: black;
+}
+
+/* Ensure page content doesn’t hide behind fixed navbar */
+body {
+  padding-top: 90px; /* same or slightly larger than nav height (25px padding + text height) */
+}

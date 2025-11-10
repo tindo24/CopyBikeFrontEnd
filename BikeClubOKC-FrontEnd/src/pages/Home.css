@@ -1,0 +1,49 @@
+/* src/pages/Home.css */
+
+.home-container {
+  border: 2px solid #444; /* dark border for contrast */
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  max-width: 480px;
+  margin: 10vh auto; /* vertical spacing + horizontal centering */
+  text-align: center;
+  background-color: #fafafa; /* very light grey background */
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif; /* modern readable font */
+  color: #222; /* dark grey for text */
+}
+
+.home-heading {
+  font-size: 2.5rem;
+  font-weight: 500; /* medium weight to avoid too bold */
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.home-heading .list-item {
+  display: block;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #333; /* slightly lighter than pure black */
+}
+
+#cta-button {
+  text-decoration: none;
+  text-transform: uppercase;
+  background: linear-gradient(
+    to right,
+    #9ea1f5,
+    #a49ff1
+  ); /* gold/yellow gradient accent */
+  display: inline-block;
+  padding: 1em 3em;
+  font-weight: 600;
+  border-radius: 1000px;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
