@@ -1,0 +1,172 @@
+.parent-container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  padding: 3rem 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* allow full width content */
+}
+
+.parent-profile {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 2rem 3rem;
+  margin: 0 auto 3rem auto;
+  max-width: 1200px;
+  width: 100%;
+  text-align: left;
+}
+
+.parent-profile h2 {
+  font-size: 2rem;
+  color: #3b2abf;
+  margin-bottom: 0.25rem;
+}
+
+.parent-email {
+  color: #666;
+  font-size: 1rem;
+}
+
+.parent-events {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.parent-events h3 {
+  color: #3b2abf;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.event-card {
+  background: #fff;
+  border-left: 5px solid #7b5cff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(123, 92, 255, 0.25);
+}
+
+.event-card h4 {
+  color: #3b2abf;
+  margin-bottom: 0.4rem;
+}
+
+.event-type {
+  color: #7b5cff;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.event-details {
+  color: #555;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.remove-btn {
+  align-self: flex-end;
+  background-color: #ff4c4c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.remove-btn:hover {
+  background-color: #e03e3e;
+  transform: scale(1.05);
+}
+
+/* ===== Calendar Section ===== */
+.calendar-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.calendar-section h3 {
+  color: #3b2abf;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.react-calendar {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.react-calendar__tile {
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.event-date {
+  background: #7b5cff !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.events-table th,
+.events-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.events-table th {
+  background-color: #f5f5f5;
+}
+
+.remove-btn {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #cc0000;
+}
