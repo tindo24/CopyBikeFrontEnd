@@ -1,22 +1,26 @@
+// src/pages/Parent.jsx
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "./Parent.css";
 import "react-calendar/dist/Calendar.css";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function Parent() {
   const [parent, setParent] = useState(null);
   const [events, setEvents] = useState([]);
+  const [expandedEventId, setExpandedEventId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [absentEvents, setAbsentEvents] = useState([]);
 
   useEffect(() => {
-    // Mock parent info
+    // Mock parent data
     setParent({
       name: "Jane Doe",
       email: "jane.doe@email.com",
       phone: "512-555-1212",
     });
 
-    // Mock events (later fetch these via API)
+    // Mock events
     setEvents([
       {
         id: 1,
@@ -42,7 +46,7 @@ export default function Parent() {
       },
       {
         id: 3,
-        title: "Down Town Trail",
+        title: "Downtown Trail",
         type: "Trail",
         start_location: "Train Station",
         end_location: "Costco Lot",
@@ -56,32 +60,34 @@ export default function Parent() {
 
   if (!parent) return <p>Loading parent data...</p>;
 
-  const eventDates = events.map((event) => event.date);
   const selectedDateString = selectedDate.toISOString().split("T")[0];
+  const eventDates = events.map((event) => event.date);
 
-  // Filter events for selected day
   const eventsForSelectedDate = events.filter(
     (event) => event.date === selectedDateString
   );
 
-  // ❌ Remove event handler
-  const handleRemoveEvent = (eventId) => {
-    const updatedEvents = events.filter((event) => event.id !== eventId);
-    setEvents(updatedEvents);
-    alert("Your child has been removed from this event.");
-    // In real app, also send DELETE/PUT request to backend
+  // ✅ Mark child absent
+  const handleMarkAbsent = (eventId) => {
+    if (absentEvents.includes(eventId)) return;
+    setAbsentEvents([...absentEvents, eventId]);
+  };
+
+  // ✅ Toggle expand
+  const handleToggleExpand = (eventId) => {
+    setExpandedEventId(expandedEventId === eventId ? null : eventId);
   };
 
   return (
     <div className="parent-container">
-      {/* 🧑 Parent Profile */}
+      {/* Parent Profile */}
       <div className="parent-profile">
         <h2>Welcome, {parent.name}</h2>
         <p>{parent.email}</p>
         <p>{parent.phone}</p>
       </div>
 
-      {/* 🗓 Calendar Section */}
+      {/* Calendar */}
       <div className="calendar-section">
         <h3>Your Child’s Event Calendar</h3>
         <Calendar
@@ -89,15 +95,12 @@ export default function Parent() {
           value={selectedDate}
           tileClassName={({ date }) => {
             const formatted = date.toISOString().split("T")[0];
-            if (eventDates.includes(formatted)) {
-              return "event-date";
-            }
-            return null;
+            return eventDates.includes(formatted) ? "event-date" : null;
           }}
         />
       </div>
 
-      {/* 📅 Events Section */}
+      {/*  Events */}
       <div className="parent-events">
         <h3>
           {eventsForSelectedDate.length > 0
@@ -105,46 +108,71 @@ export default function Parent() {
             : "Your Child’s Upcoming Events"}
         </h3>
 
-        <table className="events-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Type</th>
-              <th>Start Location</th>
-              <th>End Location</th>
-              <th>Date</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Student Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(eventsForSelectedDate.length > 0
-              ? eventsForSelectedDate
-              : events
-            ).map((event) => (
-              <tr key={event.id}>
-                <td>{event.title}</td>
-                <td>{event.type}</td>
-                <td>{event.start_location}</td>
-                <td>{event.end_location}</td>
-                <td>{event.date}</td>
-                <td>{event.start_time}</td>
-                <td>{event.end_time}</td>
-                <td>{event.student_name}</td>
-                <td>
+        <div className="event-card-grid">
+          {(eventsForSelectedDate.length > 0
+            ? eventsForSelectedDate
+            : events
+          ).map((event) => (
+            <div
+              key={event.id}
+              className={`event-card ${
+                expandedEventId === event.id ? "expanded" : ""
+              }`}
+              onClick={() => handleToggleExpand(event.id)}
+            >
+              <div className="event-summary">
+                <h4>{event.title}</h4>
+                <p className="event-type">{event.type}</p>
+                <p>
+                  <strong>Start:</strong> {event.start_location}
+                </p>
+                <div className="chevron-icon">
+                  {expandedEventId === event.id ? (
+                    <ChevronUp size={18} />
+                  ) : (
+                    <ChevronDown size={18} />
+                  )}
+                </div>
+              </div>
+
+              {/* Expanded section */}
+              {expandedEventId === event.id && (
+                <div className="event-details">
+                  <p>
+                    <strong>Date:</strong> {event.date}
+                  </p>
+                  <p>
+                    <strong>Time:</strong> {event.start_time} - {event.end_time}
+                  </p>
+                  <p>
+                    <strong>From:</strong> {event.start_location}
+                  </p>
+                  <p>
+                    <strong>To:</strong> {event.end_location}
+                  </p>
+                  <p>
+                    <strong>Student:</strong> {event.student_name}
+                  </p>
+
                   <button
-                    className="remove-btn"
-                    onClick={() => handleRemoveEvent(event.id)}
+                    className={`absent-btn ${
+                      absentEvents.includes(event.id) ? "disabled" : ""
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleMarkAbsent(event.id);
+                    }}
+                    disabled={absentEvents.includes(event.id)}
                   >
-                    Remove student
+                    {absentEvents.includes(event.id)
+                      ? "Marked Absent"
+                      : "Mark Absent"}
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
