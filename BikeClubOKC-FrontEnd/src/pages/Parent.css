@@ -2,7 +2,7 @@
 .parent-container {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  background: #e5eff6; /*linear-gradient(135deg, #f8f7ff, #e5e1ff);*/
   padding: 3rem 5%;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
 
 .parent-profile h2 {
   font-size: 2rem;
-  color: #3b2abf;
+  color: #0f75bc;
   margin-bottom: 0.25rem;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .parent-events h3 {
-  color: #3b2abf;
+  color: #0f75bc;
   margin-bottom: 1.5rem;
   text-align: left;
   font-size: 1.5rem;
@@ -91,7 +91,7 @@
 .event-summary h4 {
   font-size: 1.2rem;
   margin-bottom: 0.3rem;
-  color: #3b2abf;
+  color: #0f75bc;
 }
 
 .event-summary p {
@@ -151,7 +151,7 @@
 }
 
 .calendar-section h3 {
-  color: #3b2abf;
+  color: #0f75bc;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }

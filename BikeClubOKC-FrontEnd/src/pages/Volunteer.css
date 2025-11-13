@@ -1,20 +1,30 @@
+/* ===== Volunteer Layout ===== */
 .volunteer-container {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  background: #e5eff6;
   padding: 3rem 5%;
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* allow full width content */
+  align-items: center;
 }
 
+/* ===== Volunteer Profile ===== */
 .volunteer-profile {
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   padding: 2rem 3rem;
-  text-align: center;
-  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.volunteer-profile h2 {
+  font-size: 2rem;
+  color: #0f75bc;
+  margin-bottom: 0.2rem;
 }
 
 .volunteer-email {
@@ -22,8 +32,15 @@
   font-size: 1rem;
 }
 
+/* ===== Calendar Section ===== */
 .volunteer-calendar {
-  margin-bottom: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
@@ -33,113 +50,172 @@
   border-radius: 50%;
 }
 
+/* ===== Events Section ===== */
 .volunteer-events {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
 }
 
-.event-list {
+.volunteer-events h3 {
+  color: #0f75bc;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+/* ===== Event Cards Grid ===== */
+.event-card-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   gap: 1.5rem;
 }
 
+/* ===== Event Card ===== */
 .event-card {
   background: #fff;
-  border-left: 5px solid #7b5cff;
-  border-radius: 10px;
-  padding: 1.2rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden; /* ensures details animate smoothly */
 }
 
 .event-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(123, 92, 255, 0.25);
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
-.volunteer-btn {
-  background: #7b5cff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  margin-top: 0.8rem;
-  cursor: pointer;
-  transition: background 0.2s;
+/* ===== Event Summary ===== */
+.event-summary h4 {
+  color: #0f75bc;
+  margin-bottom: 0.4rem;
+  text-align: center;
+  width: 100%;
 }
 
-.volunteer-btn:hover {
-  background: #5a42d1;
+.event-type {
+  color: #0f75bc;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
 }
 
-.signed-up-btn {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  margin-top: 0.8rem;
-  cursor: not-allowed;
-}
-
-.volunteer-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
-  padding: 2rem;
+/* ===== Chevron Animation ===== */
+.event-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  max-width: 900px;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 
+.chevron {
+  transition: transform 0.3s ease;
+  color: #0f75bc;
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+/* ===== Expandable Card Content ===== */
+.event-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.event-card.expanded .event-details {
+  max-height: 600px; /* enough for full table + details */
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+/* ===== Students Table ===== */
 .events-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  margin-bottom: 2rem;
 }
 
 .events-table th,
 .events-table td {
+  padding: 10px;
   border: 1px solid #ddd;
-  padding: 10px 15px;
   text-align: left;
+  font-size: 0.9rem;
 }
 
 .events-table th {
-  background-color: #7b5cff;
+  background-color: #0f75bc;
   color: white;
   font-weight: 600;
 }
 
 .events-table tbody tr:hover {
-  background-color: #f0ecff;
+  background: #f4f0ff;
 }
 
-.volunteer-btn,
-.cancel-btn {
-  background-color: #7b5cff;
+/* ===== Close Button ===== */
+.close-btn {
+  background-color: #0f75bc;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #0f75bc;
+}
+
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.2rem;
+}
+
+.decline-btn {
+  background-color: #ff5c5c;
+  color: white;
+  border: none;
+  padding: 10px 16px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.volunteer-btn:hover,
-.cancel-btn:hover {
-  background-color: #5c22cc;
+.decline-btn:hover {
+  background-color: #d64545;
+  transform: scale(1.05);
 }
-/* Make clickable event rows feel interactive */
-.clickable-row {
+
+.decline-btn.disabled {
+  background-color: #b5b5b5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.close-btn {
+  background-color: #0f75bc;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
-.clickable-row:hover {
-  background-color: #ebe6ff; /* light purple highlight */
-  transform: scale(1.01);
+.close-btn:hover {
+  background-color: #0f75bc;
 }

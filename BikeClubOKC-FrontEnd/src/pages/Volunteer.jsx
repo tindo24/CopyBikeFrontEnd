@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "./Volunteer.css";
 import "react-calendar/dist/Calendar.css";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function Volunteer() {
   const [volunteer, setVolunteer] = useState(null);
   const [events, setEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [expandedEventId, setExpandedEventId] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [declinedEvents, setDeclinedEvents] = useState([]);
 
   useEffect(() => {
     // Mock volunteer data
@@ -45,26 +47,8 @@ export default function Volunteer() {
           {
             student_name: "Jeff Curtis",
             parent_name: "Mark Curtis",
-            parent_email: "mark.johnson@email.com",
+            parent_email: "mark.curtis@email.com",
             parent_phone: "512-555-9834",
-          },
-          {
-            student_name: "Fred Warner",
-            parent_name: "Sarah Warner",
-            parent_email: "sarah.kim@email.com",
-            parent_phone: "512-555-6578",
-          },
-          {
-            student_name: "Joe Austin",
-            parent_name: "Steve Austin",
-            parent_email: "mark.johnson@email.com",
-            parent_phone: "512-555-9834",
-          },
-          {
-            student_name: "Michale Chen",
-            parent_name: "Humphrey chen",
-            parent_email: "sarah.kim@email.com",
-            parent_phone: "512-555-6578",
           },
         ],
       },
@@ -89,12 +73,26 @@ export default function Volunteer() {
     ]);
   }, []);
 
+  if (!volunteer) return <p>Loading volunteer data...</p>;
+
   const selectedDateString = selectedDate.toISOString().split("T")[0];
-  const eventsOnSelectedDate = events.filter(
+  const eventDates = events.map((event) => event.date);
+
+  const eventsForSelectedDate = events.filter(
     (e) => e.date === selectedDateString
   );
 
-  if (!volunteer) return <p>Loading volunteer data...</p>;
+  // Toggle expand
+  const toggleExpand = (id) => {
+    setExpandedEventId(expandedEventId === id ? null : id);
+  };
+
+  // Decline event
+  const handleDecline = (eventId) => {
+    if (!declinedEvents.includes(eventId)) {
+      setDeclinedEvents([...declinedEvents, eventId]);
+    }
+  };
 
   return (
     <div className="volunteer-container">
@@ -114,101 +112,122 @@ export default function Volunteer() {
           value={selectedDate}
           tileClassName={({ date }) => {
             const dateStr = date.toISOString().split("T")[0];
-            return events.some((event) => event.date === dateStr)
-              ? "has-event"
-              : "";
+            return eventDates.includes(dateStr) ? "has-event" : "";
           }}
         />
       </div>
 
-      {/* Events Table */}
+      {/* Events Section */}
       <div className="volunteer-events">
-        <h3>Click event to see more details</h3>
-        {events.length > 0 ? (
-          <table className="events-table">
-            <thead>
-              <tr>
-                <th>Event Name</th>
-                <th>Start Date</th>
-                <th>Start Time</th>
-                <th>Start Location</th>
-              </tr>
-            </thead>
-            <tbody>
-              {events.map((event) => (
-                <tr
-                  key={event.id}
-                  className="clickable-row"
-                  onClick={() => setSelectedEvent(event)}
-                >
-                  <td>{event.title}</td>
-                  <td>{event.date}</td>
-                  <td>{event.start_time}</td>
-                  <td>{event.start_location}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No assigned events yet.</p>
-        )}
-      </div>
+        <h3>
+          {eventsForSelectedDate.length > 0
+            ? `Events on ${selectedDate.toDateString()}`
+            : "Assigned Events"}
+        </h3>
 
-      {/* Event Details Section */}
-      {selectedEvent && (
-        <div className="event-details">
-          <h3>Event Details</h3>
-          <p>
-            <strong>Title:</strong> {selectedEvent.title}
-          </p>
-          <p>
-            <strong>Type:</strong> {selectedEvent.type}
-          </p>
-          <p>
-            <strong>Start Location:</strong> {selectedEvent.start_location}
-          </p>
-          <p>
-            <strong>End Location:</strong> {selectedEvent.end_location}
-          </p>
-          <p>
-            <strong>Date:</strong> {selectedEvent.date}
-          </p>
-          <p>
-            <strong>Time:</strong> {selectedEvent.start_time} -{" "}
-            {selectedEvent.end_time}
-          </p>
+        <div className="event-card-grid">
+          {(eventsForSelectedDate.length > 0
+            ? eventsForSelectedDate
+            : events
+          ).map((event) => (
+            <div
+              key={event.id}
+              className={`event-card ${
+                expandedEventId === event.id ? "expanded" : ""
+              }`}
+              onClick={() => toggleExpand(event.id)}
+            >
+              {/* Summary */}
+              <div className="event-summary">
+                <div className="event-header">
+                  <h4>{event.title}</h4>
+                  <span
+                    className={`chevron ${
+                      expandedEventId === event.id ? "rotated" : ""
+                    }`}
+                  >
+                    {expandedEventId === event.id ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    )}
+                  </span>
+                </div>
 
-          <h4>Students Signed Up:</h4>
-          {selectedEvent.participants.length > 0 ? (
-            <table className="events-table">
-              <thead>
-                <tr>
-                  <th>Student Name</th>
-                  <th>Parent Name</th>
-                  <th>Parent Email</th>
-                  <th>Parent Phone</th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedEvent.participants.map((p, index) => (
-                  <tr key={index}>
-                    <td>{p.student_name}</td>
-                    <td>{p.parent_name}</td>
-                    <td>{p.parent_email}</td>
-                    <td>{p.parent_phone}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No students signed up yet.</p>
-          )}
+                <p className="event-type">{event.type}</p>
+                <p>
+                  <strong>Location:</strong> {event.start_location}
+                </p>
+                <p>
+                  <strong>Date:</strong> {event.date}
+                </p>
+              </div>
 
-          <button className="close-btn" onClick={() => setSelectedEvent(null)}>
-            Close
-          </button>
+              {/* Expanded Details */}
+              {expandedEventId === event.id && (
+                <div className="event-details">
+                  <p>
+                    <strong>Time:</strong> {event.start_time} – {event.end_time}
+                  </p>
+                  <p>
+                    <strong>End Location:</strong> {event.end_location}
+                  </p>
+
+                  <h4>Students Signed Up</h4>
+                  <table className="events-table">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Parent</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {event.participants.map((p, index) => (
+                        <tr key={index}>
+                          <td>{p.student_name}</td>
+                          <td>{p.parent_name}</td>
+                          <td>{p.parent_email}</td>
+                          <td>{p.parent_phone}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  {/* Buttons */}
+                  <div className="button-row">
+                    <button
+                      className={`decline-btn ${
+                        declinedEvents.includes(event.id) ? "disabled" : ""
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDecline(event.id);
+                      }}
+                      disabled={declinedEvents.includes(event.id)}
+                    >
+                      {declinedEvents.includes(event.id)
+                        ? "Declined"
+                        : "Decline Event"}
+                    </button>
+
+                    <button
+                      className="close-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleExpand(event.id);
+                      }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
