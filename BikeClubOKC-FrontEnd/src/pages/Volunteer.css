@@ -1,0 +1,145 @@
+.volunteer-container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  padding: 3rem 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* allow full width content */
+}
+
+.volunteer-profile {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 2rem 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.volunteer-email {
+  color: #666;
+  font-size: 1rem;
+}
+
+.volunteer-calendar {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.has-event {
+  background: #7b5cff !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.volunteer-events {
+  width: 100%;
+  max-width: 800px;
+}
+
+.event-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.event-card {
+  background: #fff;
+  border-left: 5px solid #7b5cff;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(123, 92, 255, 0.25);
+}
+
+.volunteer-btn {
+  background: #7b5cff;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.volunteer-btn:hover {
+  background: #5a42d1;
+}
+
+.signed-up-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  cursor: not-allowed;
+}
+
+.volunteer-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.events-table th,
+.events-table td {
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  text-align: left;
+}
+
+.events-table th {
+  background-color: #7b5cff;
+  color: white;
+  font-weight: 600;
+}
+
+.events-table tbody tr:hover {
+  background-color: #f0ecff;
+}
+
+.volunteer-btn,
+.cancel-btn {
+  background-color: #7b5cff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.volunteer-btn:hover,
+.cancel-btn:hover {
+  background-color: #5c22cc;
+}
+/* Make clickable event rows feel interactive */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.clickable-row:hover {
+  background-color: #ebe6ff; /* light purple highlight */
+  transform: scale(1.01);
+}

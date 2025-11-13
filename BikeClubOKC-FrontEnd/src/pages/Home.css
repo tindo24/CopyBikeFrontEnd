@@ -1,49 +1,70 @@
-/* src/pages/Home.css */
-
 .home-container {
-  border: 2px solid #444; /* dark border for contrast */
-  border-radius: 12px;
-  padding: 3rem 2rem;
-  max-width: 480px;
-  margin: 10vh auto; /* vertical spacing + horizontal centering */
-  text-align: center;
-  background-color: #fafafa; /* very light grey background */
-  font-family: "Inter", "Helvetica Neue", Arial, sans-serif; /* modern readable font */
-  color: #222; /* dark grey for text */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f7ff, #e5e1ff);
+  padding: 1rem;
 }
 
-.home-heading {
-  font-size: 2.5rem;
-  font-weight: 500; /* medium weight to avoid too bold */
-  line-height: 1.3;
+.home-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.home-title {
+  font-size: 2.2rem;
+  color: #3b2abf;
+  margin-bottom: 1rem;
+}
+
+.home-subtitle {
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.home-list {
+  list-style: none;
+  padding: 0;
   margin-bottom: 2rem;
 }
 
-.home-heading .list-item {
-  display: block;
-  font-size: 2.25rem;
+.home-list li {
+  background-color: #f1eeff;
+  border: 1px solid #d6ccff;
+  color: #3b2abf;
   font-weight: 600;
-  color: #333; /* slightly lighter than pure black */
+  border-radius: 10px;
+  margin: 0.5rem auto;
+  padding: 0.7rem 0;
+  width: 80%;
+  max-width: 300px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#cta-button {
+.home-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(123, 92, 255, 0.2);
+}
+
+.cta-button {
   text-decoration: none;
-  text-transform: uppercase;
-  background: linear-gradient(
-    to right,
-    #9ea1f5,
-    #a49ff1
-  ); /* gold/yellow gradient accent */
-  display: inline-block;
-  padding: 1em 3em;
-  font-weight: 600;
-  border-radius: 1000px;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  background: linear-gradient(90deg, #7b5cff, #a07bff);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  padding: 0.9rem 2.5rem;
+  border-radius: 30px;
+  display: inline-block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#cta-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(123, 92, 255, 0.4);
 }
