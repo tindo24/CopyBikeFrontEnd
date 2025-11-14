@@ -9,6 +9,9 @@ import Volunteer from "./pages/Volunteer";
 // import About from "./pages/About";
 // import Products from "./pages/Products";
 import Login from "./pages/Login";
+import ParentRegister from "./pages/ParentRegister";
+import VolunteerRegister from "./pages/VolunteerRegister";
+import Facilitator from "./pages/Facilitator";
 
 export default function App() {
   return (
@@ -21,6 +24,9 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="parent" element={<Parent />} />
         <Route path="volunteer" element={<Volunteer />} />
+        <Route path="register/parent" element={<ParentRegister />} />
+        <Route path="register/volunteer" element={<VolunteerRegister />} />
+        <Route path="facilitator" element={<Facilitator />} />
       </Route>
     </Routes>
   );

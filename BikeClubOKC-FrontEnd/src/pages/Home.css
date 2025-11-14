@@ -81,3 +81,12 @@ html {
   transform: translateY(-2px);
   box-shadow: 0 5px 12px rgba(123, 92, 255, 0.4);
 }
+.list-link {
+  color: #0f75bc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.list-link:hover {
+  text-decoration: underline;
+}

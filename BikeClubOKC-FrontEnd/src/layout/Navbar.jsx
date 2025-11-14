@@ -31,6 +31,12 @@ export default function Navbar() {
       >
         Volunteer
       </NavLink>
+      <NavLink
+        to="/facilitator"
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        Facilitator
+      </NavLink>
     </nav>
   );
 }
