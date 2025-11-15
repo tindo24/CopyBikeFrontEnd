@@ -4,6 +4,8 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import "./Facilitator.css";
 import "react-calendar/dist/Calendar.css";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function Facilitator() {
   const [facilitator, setFacilitator] = useState(null);
   const [events, setEvents] = useState([]);
