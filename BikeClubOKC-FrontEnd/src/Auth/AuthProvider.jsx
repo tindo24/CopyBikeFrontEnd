@@ -13,7 +13,15 @@ export function AuthProvider({ children }) {
     return stored ? Number(stored) : null;
   });
 
-  // Decode JWT without extra libraries
+  // ⭐ NEW: Store role (parent/volunteer)
+  const [role, setRole] = useState(() => localStorage.getItem("role") || null);
+
+  // ⭐ NEW: Store facilitator true/false
+  const [isFacilitator, setIsFacilitator] = useState(() => {
+    const stored = localStorage.getItem("isFacilitator");
+    return stored === "true"; // converts string → boolean
+  });
+
   function decodeJWT(jwt) {
     try {
       const payload = jwt.split(".")[1];
@@ -24,41 +32,60 @@ export function AuthProvider({ children }) {
     }
   }
 
+  // =====================================================
   // LOGIN
-  function login(jwtToken) {
-    // ⭐️ DEBUG LOG #1 — raw token
+  // =====================================================
+  function login(jwtToken, roleFromLogin = null) {
     console.log("RAW TOKEN RECEIVED:", jwtToken);
-
     setToken(jwtToken);
     localStorage.setItem("token", jwtToken);
 
+    // Decode the JWT
     const decoded = decodeJWT(jwtToken);
-
-    // ⭐️ DEBUG LOG #2 — decoded payload
     console.log("DECODED JWT PAYLOAD:", decoded);
 
+    // user ID
     if (decoded?.id) {
       setUserId(decoded.id);
       localStorage.setItem("userId", decoded.id);
+    }
 
-      // ⭐️ DEBUG LOG #3 — success message
-      console.log("USER ID SET FROM TOKEN:", decoded.id);
-    } else {
-      console.error("Token decoded but no id found:", decoded);
+    // role comes from login.jsx ("parent" or "volunteer")
+    if (roleFromLogin) {
+      setRole(roleFromLogin);
+      localStorage.setItem("role", roleFromLogin);
+    }
+
+    // facilitator flag stored inside payload
+    if (decoded?.facilitator !== undefined) {
+      setIsFacilitator(!!decoded.facilitator);
+      localStorage.setItem("isFacilitator", decoded.facilitator);
     }
   }
 
+  // =====================================================
   // LOGOUT
+  // =====================================================
   function logout() {
     setToken(null);
     setUserId(null);
+    setRole(null);
+    setIsFacilitator(false);
+
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("role");
+    localStorage.removeItem("isFacilitator");
   }
 
+  // =====================================================
+  // EXPOSE EVERYTHING TO THE APP
+  // =====================================================
   const value = {
     token,
     userId,
+    role,
+    isFacilitator,
     login,
     logout,
   };

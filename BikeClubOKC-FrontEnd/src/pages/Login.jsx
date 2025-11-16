@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../Auth/AuthProvider";
 import "./Login.css";
 
-// ⬅️ Import backend login API functions
+// API functions
 import { parentLogin, volunteerLogin } from "../auth/authAPI";
 
 export default function Login() {
@@ -31,12 +31,12 @@ export default function Login() {
         jwtToken = await volunteerLogin(email, password);
       }
 
-      console.log("RAW TOKEN RECEIVED:", jwtToken);
+      console.log("🔥 RAW TOKEN RECEIVED:", jwtToken);
 
-      // Store token + decode userId
-      login(jwtToken);
+      // Store token + role in AuthProvider
+      login(jwtToken, role); // ⭐ SEND BOTH TOKEN + ROLE
 
-      alert("Login successful — Debug Mode ON!");
+      alert("Login successful!");
       setReadyToContinue(true);
     } catch (err) {
       console.error("Login FAILED:", err);
@@ -44,9 +44,28 @@ export default function Login() {
     }
   }
 
+  // Handles dashboard routing depending on role and facilitator flag
   function handleContinue() {
-    if (role === "parent") window.location.href = "/parent";
-    if (role === "volunteer") window.location.href = "/volunteer";
+    // Read decoded values from AuthProvider
+    const storedRole = localStorage.getItem("role");
+    const isFacilitator = localStorage.getItem("isFacilitator") === "true";
+
+    console.log("➡️ Continue clicked:");
+    console.log("Stored role:", storedRole);
+    console.log("Facilitator:", isFacilitator);
+
+    if (storedRole === "parent") {
+      window.location.href = "/parent";
+      return;
+    }
+
+    if (storedRole === "volunteer") {
+      if (isFacilitator) {
+        window.location.href = "/facilitator"; // ⭐ NEW DASHBOARD FOR FACILITATOR
+      } else {
+        window.location.href = "/volunteer";
+      }
+    }
   }
 
   return (
