@@ -6,7 +6,9 @@ export default function Home() {
     <div className="home-container">
       <div className="home-card">
         <h1 className="home-title">Join Our Community</h1>
-        <p className="home-subtitle">Please register if you are a:</p>
+        <p className="home-subtitle">
+          Please fill out application if you are a:
+        </p>
 
         <ul className="home-list">
           <li>
@@ -20,10 +22,6 @@ export default function Home() {
             </a>
           </li>
         </ul>
-
-        <a href="/register/parent" className="cta-button">
-          Register Now
-        </a>
       </div>
     </div>
   );

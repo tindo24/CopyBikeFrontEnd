@@ -22,9 +22,9 @@ export default function ParentRegister() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2>Parent Registration</h2>
+        <h2>Parent Application</h2>
         <p className="register-subtitle">
-          Register as a parent to manage your child's events.
+          Apply a parent to manage your child's events.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -54,7 +54,7 @@ export default function ParentRegister() {
           </div>
 
           <button className="register-btn" type="submit">
-            Register Parent
+            Submit Application
           </button>
         </form>
       </div>

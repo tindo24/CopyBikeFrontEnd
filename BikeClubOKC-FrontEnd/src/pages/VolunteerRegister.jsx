@@ -30,10 +30,8 @@ export default function VolunteerRegister() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2>Volunteer Registration</h2>
-        <p className="register-subtitle">
-          Register to help our biking community.
-        </p>
+        <h2>Volunteer Application</h2>
+        <p className="register-subtitle">Apply to help our biking community.</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -77,7 +75,7 @@ export default function VolunteerRegister() {
           </div>
 
           <button className="register-btn" type="submit">
-            Register Volunteer
+            Submit Application
           </button>
         </form>
       </div>
