@@ -12,7 +12,7 @@ export async function parentLogin(email, password) {
     body: JSON.stringify({ email, password }),
   });
   const text = await res.text();
-  console.log("🔥 SERVER RAW LOGIN RESPONSE:", text);
+  console.log("SERVER RAW LOGIN RESPONSE:", text);
 
   if (!res.ok) {
     throw new Error("Parent login failed");

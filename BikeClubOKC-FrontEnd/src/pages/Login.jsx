@@ -34,7 +34,7 @@ export default function Login() {
       console.log("🔥 RAW TOKEN RECEIVED:", jwtToken);
 
       // Store token + role in AuthProvider
-      login(jwtToken, role); // ⭐ SEND BOTH TOKEN + ROLE
+      login(jwtToken, role); //  SEND BOTH TOKEN + ROLE
 
       alert("Login successful!");
       setReadyToContinue(true);
